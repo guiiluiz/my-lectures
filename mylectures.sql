@@ -1,0 +1,28 @@
+CREATE DATABASE IF NOT EXISTS mylectures;
+USE mylectures;
+
+CREATE TABLE IF NOT EXISTS user (
+  user_id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+  name VARCHAR(50) NOT NULL,
+  email VARCHAR(150) UNIQUE NOT NULL,
+  manager TINYINT(1) NOT NULL DEFAULT 0,
+  password VARCHAR(45) NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS event (
+  event_id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+  name VARCHAR(50) NOT NULL,
+  date DATETIME NOT NULL,
+  city VARCHAR(50) NOT NULL,
+  street VARCHAR(80) NOT NULL,
+  number INT NOT NULL,
+  description VARCHAR(200) NOT NULL,
+  created_by INT,
+  FOREIGN KEY(created_by) REFERENCES user(user_id)
+);
+
+CREATE TABLE IF NOT EXISTS confirmed (
+  event_id INT NOT NULL,
+  user_id INT NOT NULL,
+  PRIMARY KEY(event_id, user_id)
+);
