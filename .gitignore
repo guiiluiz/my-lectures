@@ -176,7 +176,6 @@ build/Release
 # Dependency directories
 node_modules/
 back-end/node_modules
-back-end/public/images
 front-end/node_modules
 jspm_packages/
 
