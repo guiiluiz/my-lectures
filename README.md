@@ -41,7 +41,9 @@
 
 ### PARA RODAR O PROJETO SIGA AS INSTRUÇÕES:
 
-1. Crie um arquivo `.env` na raiz do projeto para configurar o banco de dados
+1. Crie o banco de dados com o arquivo `mylectures.sql` da raiz do projeto
+
+2. Crie um arquivo `.env` na raiz do projeto para configurar o banco de dados
 
   - Deve seguir com as seguintes variáveis (exemplo de valores):
     - `DB_HOST=localhost`
@@ -49,7 +51,7 @@
     - `DB_PASS=password`
     - `DB_NAME=mylectures`
 
-2. Instale as dependências e inicie o projeto front-end
+3. Instale as dependências e inicie o projeto front-end
 
   - Navegue até a pasta
     - `cd front-end`
@@ -60,7 +62,7 @@
   - Inicie o programa
     - `npm start`
 
-3. Instale as dependências e inicie o projeto back-end
+4. Instale as dependências e inicie o projeto back-end
 
   - Navegue até a pasta
     - `cd back-end`

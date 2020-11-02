@@ -18,7 +18,7 @@ export async function validateLogin(setIsLoged) {
 }
 
 export async function sendData(event, data, url, setIsLoged) {
-  event.preventDefault();
+  // event.preventDefault();
   const result = await fetch(`http://localhost:3001/${url}`, {
     method: 'POST',
     headers: {

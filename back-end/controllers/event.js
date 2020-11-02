@@ -9,7 +9,8 @@ const createEvent = async (req, res) => {
   const { name, date, city, street, number, description, manager } = req.body;
   if (!manager) return res.status(401).json({ message: 'Usuário sem permissão!' });
   const eventDetails = { name, date, city, street, number, description };
-  return Event.create(eventDetails).then(() => res.status(201).json(eventDetails));
+  const { email } = req.user;
+  return Event.create(eventDetails, email).then(() => res.status(201).json(eventDetails));
 };
 
 const confirmedCount = async (req, res) => {
@@ -42,6 +43,11 @@ const userEvents = async (req, res) => {
   return Event.getUserEvents(email).then(response => res.status(200).json(response));
 };
 
+const userCreatedEvents = async (req, res) => {
+  const { email } = req.body;
+  return Event.getUserCreatedEvents(email).then(response => res.status(200).json(response));
+};
+
 const allEvents = async (_req, res) => Event.getAll().then(body => res.status(200).json(body));
 
 const eventDetails = async (req, res) => {
@@ -60,6 +66,8 @@ router.post('/disconfirm', verifyJWT, rescue(disconfirmUser));
 router.get('/confirm/:id', verifyJWT, rescue(userIsConfirmed));
 
 router.get('/user', verifyJWT, rescue(userEvents));
+
+router.post('/user', verifyJWT, rescue(userCreatedEvents));
 
 router.get('/', verifyJWT, rescue(allEvents));
 

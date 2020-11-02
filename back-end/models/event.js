@@ -1,9 +1,9 @@
 const conn = require('../connection');
 
 class Event {
-  static async create(eventDetails) {
+  static async create(eventDetails, userEmail) {
     const { name, date, city, street, number, description } = eventDetails;
-    const query = `INSERT INTO event (name, date, city, street, number, description) VALUES ('${name}', '${date}', '${city}', '${street}', '${number}', '${description}')`;
+    const query = `INSERT INTO event (name, date, city, street, number, description, created_by) VALUES ('${name}', '${date}', '${city}', '${street}', '${number}', '${description}', (SELECT user_id FROM user WHERE email = '${userEmail}'))`;
     return new Promise((resolve, reject) => {
       conn.query(query, (err, _results) => {
         if (err) return reject(err);
@@ -36,6 +36,18 @@ class Event {
     const query = `SELECT e.event_id, e.name, date, city, street, number, description FROM event AS e
     INNER JOIN confirmed AS c ON c.event_id = e.event_id
     INNER JOIN user AS u ON u.user_id = c.user_id
+    WHERE u.email = '${email}';`;
+    return new Promise((resolve, reject) => {
+      conn.query(query, (err, results) => {
+        if (err) return reject(err);
+        return resolve(results);
+      });
+    });
+  }
+
+  static async getUserCreatedEvents(email) {
+    const query = `SELECT e.event_id, e.name, date, city, street, number, description FROM event AS e
+    INNER JOIN user AS u ON u.user_id = e.created_by
     WHERE u.email = '${email}';`;
     return new Promise((resolve, reject) => {
       conn.query(query, (err, results) => {
