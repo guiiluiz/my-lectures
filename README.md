@@ -43,32 +43,30 @@
 
 1. Crie um arquivo `.env` na raiz do projeto para configurar o banco de dados
 
-- Deve seguir com as seguintes variáveis (exemplo de valores):
-  - `DB_HOST=localhost`
-  - `DB_USER=root`
-  - `DB_PASS=password`
-  - `DB_NAME=mylectures`
-
+  - Deve seguir com as seguintes variáveis (exemplo de valores):
+    - `DB_HOST=localhost`
+    - `DB_USER=root`
+    - `DB_PASS=password`
+    - `DB_NAME=mylectures`
 
 2. Instale as dependências e inicie o projeto front-end
 
-- Navegue até a pasta
-  - `cd front-end`
+  - Navegue até a pasta
+    - `cd front-end`
 
-- Instale as dependências
-  - `npm install`
+  - Instale as dependências
+    - `npm install`
 
-- Inicie o programa
-  - `npm start`
-
+  - Inicie o programa
+    - `npm start`
 
 3. Instale as dependências e inicie o projeto back-end
 
-- Navegue até a pasta
-  - `cd back-end`
+  - Navegue até a pasta
+    - `cd back-end`
 
-- Instale as dependências
-  - `npm install`
+  - Instale as dependências
+    - `npm install`
 
-- Inicie o programa
-  - `npm start`
+  - Inicie o programa
+    - `npm start`
