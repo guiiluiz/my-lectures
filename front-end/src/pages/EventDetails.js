@@ -10,6 +10,12 @@ async function isUserConfirmed(user, id) {
   return fetch(url, { headers: { authorization: user.token } }).then((res) => res.json());
 }
 
+async function getConfirmedCount(id, user) {
+  const url = `http://localhost:3001/event/confirmed/${id}`;
+
+  return fetch(url, { headers: { authorization: user.token } }).then((res) => res.json());
+}
+
 async function getEvent(user, id, setData, setConfirmed) {
   const url = `http://localhost:3001/event/${id}`;
   const userConfirmed = await isUserConfirmed(user, id);
@@ -17,7 +23,10 @@ async function getEvent(user, id, setData, setConfirmed) {
 
   await fetch(url, { headers: { authorization: user.token } })
     .then((res) => res.json())
-    .then((result) => setData(result));
+    .then(async (result) => {
+      const confirmedCount = await getConfirmedCount(id, user);
+      return setData({ ...result, confirmedCount })
+    });
 }
 
 async function confirmUserInEvent(user, id, confirmed, setConfirmed) {
@@ -55,6 +64,9 @@ const useStyles = makeStyles((theme) => ({
     color: '#f50057',
     margin: 0,
   },
+  confirmedCount: {
+    marginBottom: 0,
+  },
   submit: {
     margin: theme.spacing(3, 0, 2),
     maxWidth: 600,
@@ -75,7 +87,7 @@ function EventDetails(props) {
   if (data.message || !user) return <Redirect to='/login'/>;
   if (!data) return <div>Loading...</div>;
 
-  const { name, date, city, street, number, description } = data;
+  const { name, date, city, street, number, description, confirmedCount } = data;
   const eventDate = new Date(date);
 
   return (
@@ -88,6 +100,7 @@ function EventDetails(props) {
           <h4 className={classes.subtitle}>Descrição:</h4>
           <p>{description}</p>
         </div>
+        <h2 className={classes.confirmedCount}>Confirmados: <span className={classes.subtitle}>{confirmedCount}</span></h2>
         <Button
           fullWidth
           variant="contained"

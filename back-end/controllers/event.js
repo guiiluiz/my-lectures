@@ -12,6 +12,12 @@ const createEvent = async (req, res) => {
   return Event.create(eventDetails).then(() => res.status(201).json(eventDetails));
 };
 
+const confirmedCount = async (req, res) => {
+  const eventId = req.params.id;
+  const { email } = req.user;
+  return Event.confirmedCount(eventId, email).then(({ confirmedCount }) => res.status(200).json(confirmedCount));
+};
+
 const confirmUser = async (req, res) => {
   const eventId = req.body.id;
   const { email } = req.user;
@@ -44,6 +50,8 @@ const eventDetails = async (req, res) => {
 };
 
 router.post('/', verifyJWT, rescue(createEvent));
+
+router.get('/confirmed/:id', verifyJWT, rescue(confirmedCount));
 
 router.post('/confirm', verifyJWT, rescue(confirmUser));
 

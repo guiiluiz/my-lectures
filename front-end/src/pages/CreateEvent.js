@@ -176,7 +176,7 @@ function CreateEvent() {
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Sign up
+            Cadastrar Evento
           </Typography>
           <form className={classes.form} noValidate onSubmit={(e) => registerEvent(e, { name, date: datetime, street, number, city, description }, setShouldRedirect, user)}>
             <Grid container spacing={3}>

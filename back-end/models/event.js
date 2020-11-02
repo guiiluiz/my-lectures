@@ -74,6 +74,16 @@ class Event {
       });
     });
   }
+
+  static async confirmedCount(eventId) {
+    const query = `SELECT COUNT(*) as confirmedCount FROM confirmed WHERE event_id = '${eventId}'`;
+    return new Promise((resolve, reject) => {
+      conn.query(query, (err, results) => {
+        if (err) return reject(err);
+        return resolve(results[0]);
+      });
+    });
+  }
 }
 
 module.exports = Event;
