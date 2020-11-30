@@ -10,7 +10,7 @@ async function isUserConfirmed(user, id) {
   return fetch(url, { headers: { authorization: user.token } }).then((res) => res.json());
 }
 
-async function getConfirmedCount(id, user) {
+async function getConfirmedList(id, user) {
   const url = `http://localhost:3001/event/confirmed/${id}`;
 
   return fetch(url, { headers: { authorization: user.token } }).then((res) => res.json());
@@ -24,8 +24,8 @@ async function getEvent(user, id, setData, setConfirmed) {
   await fetch(url, { headers: { authorization: user.token } })
     .then((res) => res.json())
     .then(async (result) => {
-      const confirmedCount = await getConfirmedCount(id, user);
-      return setData({ ...result, confirmedCount })
+      const confirmedList = await getConfirmedList(id, user);
+      return setData({ ...result, confirmedCount: confirmedList.participants.length })
     });
 }
 

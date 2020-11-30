@@ -2,6 +2,7 @@ const express = require('express');
 const rescue = require('../rescue');
 const Event = require('../models/event');
 const verifyJWT = require('../middlewares/verifyJWT');
+const User = require('../models/user');
 
 const router = express.Router();
 
@@ -13,11 +14,15 @@ const createEvent = async (req, res) => {
   return Event.create(eventDetails, email).then(() => res.status(201).json(eventDetails));
 };
 
-const confirmedCount = async (req, res) => {
+const eventParticipants = async (req, res) => {
   const eventId = req.params.id;
-  const { email } = req.user;
-  return Event.confirmedCount(eventId, email).then(({ confirmedCount }) => res.status(200).json(confirmedCount));
-};
+  const idList = await Event.getEventParticipants(eventId);
+  const participants = await Promise.all(idList.map(async (participantId) => {
+    const participantEmail = await User.getUserEmail(participantId.user_id);
+    return participantEmail.email;
+  }));
+  return res.status(200).json({ participants });
+}
 
 const confirmUser = async (req, res) => {
   const eventId = req.body.id;
@@ -57,7 +62,7 @@ const eventDetails = async (req, res) => {
 
 router.post('/', verifyJWT, rescue(createEvent));
 
-router.get('/confirmed/:id', verifyJWT, rescue(confirmedCount));
+router.get('/confirmed/:id', verifyJWT, rescue(eventParticipants));
 
 router.post('/confirm', verifyJWT, rescue(confirmUser));
 

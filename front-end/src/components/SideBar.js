@@ -9,6 +9,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 import List from '@material-ui/core/List';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
+import AssessmentIcon from '@material-ui/icons/Assessment';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 import ViewListSharpIcon from '@material-ui/icons/ViewListSharp';
 import LocalBarSharpIcon from '@material-ui/icons/LocalBarSharp';
@@ -21,6 +22,7 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import { userLogout, validateLogin } from '../service';
+// import { TextField } from '@material-ui/core';
 
 const user = JSON.parse(localStorage.getItem('user')) || '';
 
@@ -42,6 +44,8 @@ const mock = [
 if (user.manager) {
   mock.unshift(['Cadastrar Evento', 'create']);
   listIcon.unshift(<AddCircleIcon />);
+  mock.unshift(['Relatórios', 'reports']);
+  listIcon.unshift(<AssessmentIcon />);
 }
 
 const drawerWidth = 240;
@@ -157,6 +161,7 @@ function appBarSlider(classes, handleDrawerOpen, title, open) {
         <Typography variant="h6" noWrap>
           {title}
         </Typography>
+        {/* {title.includes('Eventos') && <TextField id="outlined-basic" label="Search" variant="outlined" />} */}
       </Toolbar>
     </AppBar>
   );

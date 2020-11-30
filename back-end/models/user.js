@@ -39,6 +39,16 @@ class User {
       });
     });
   }
+
+  static async getUserEmail(id) {
+    const query = `SELECT email FROM user WHERE user_id = '${id}';`;
+    return new Promise((resolve, reject) => {
+      conn.query(query, (err, results) => {
+        if (err) return reject(err);
+        return resolve(results[0]);
+      });
+    });
+  }
 }
 
 module.exports = User;

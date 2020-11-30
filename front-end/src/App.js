@@ -11,6 +11,7 @@ import Profile from './pages/Profile';
 import EventDetails from './pages/EventDetails';
 import ConfirmedEvents from './pages/ConfirmedEvents';
 import CreateEvent from './pages/CreateEvent';
+import Reports from './pages/Reports';
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
           <Route path="/profile" component={Profile} />
           <Route path="/confirmed" component={ConfirmedEvents} />
           <Route path="/create" component={CreateEvent} />
+          <Route path="/reports" component={Reports} />
         </Switch>
       </Router>
   );
